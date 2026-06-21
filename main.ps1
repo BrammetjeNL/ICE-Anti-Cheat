@@ -654,9 +654,9 @@ function Get-DiscordAccounts {
                 <RowDefinition Height="*"/>
               </Grid.RowDefinitions>
               <TextBox x:Name="ToolSearch" Grid.Row="0" Margin="0,0,0,12"
-                       Background="#0D1520" Foreground="#CFD8DC" BorderBrush="#1A2535"
+                       Background="#0D1520" Foreground="#607D8B" BorderBrush="#1A2535"
                        BorderThickness="1" Padding="12,8" FontSize="12"
-                       Text="Search tools..." Foreground="#37474F"
+                       Text="Search tools..."
                        Height="36"/>
               <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <StackPanel x:Name="ToolsPanel"/>
