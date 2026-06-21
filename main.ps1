@@ -4,14 +4,14 @@ Add-Type -AssemblyName WindowsBase
 
 [xml]$xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        Title="ICE PANEL"
+        Title="ICE Dashboard"
         Width="1100" Height="700"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#0F0F0F"
+        Background="#0E0E10"
         FontFamily="Segoe UI">
 
-    <Border BorderBrush="#2C2C2C" BorderThickness="1" CornerRadius="8" Background="#0F0F0F">
+    <Border CornerRadius="10" BorderBrush="#2A2A2A" BorderThickness="1" Background="#0E0E10">
         <Grid>
 
             <Grid.RowDefinitions>
@@ -20,22 +20,24 @@ Add-Type -AssemblyName WindowsBase
             </Grid.RowDefinitions>
 
             <!-- TOP BAR -->
-            <Grid Background="#151515">
-                <TextBlock Text="ICE PANEL"
-                           VerticalAlignment="Center"
-                           Margin="15,0,0,0"
+            <Grid Background="#151518">
+                <TextBlock Text="ICE DASHBOARD"
                            Foreground="White"
-                           FontWeight="Bold"/>
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="15,0,0,0"/>
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right">
 
                     <Button Name="MinBtn" Content="_"
-                            Width="40" Background="Transparent"
+                            Width="40"
+                            Background="Transparent"
                             Foreground="White"/>
 
                     <Button Name="CloseBtn" Content="X"
-                            Width="40" Background="Transparent"
+                            Width="40"
+                            Background="Transparent"
                             Foreground="White"/>
                 </StackPanel>
             </Grid>
@@ -44,25 +46,26 @@ Add-Type -AssemblyName WindowsBase
             <Grid Grid.Row="1">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="210"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- SIDEBAR -->
-                <StackPanel Background="#141414">
+                <StackPanel Background="#121214">
 
                     <TextBlock Text="MENU"
                                Foreground="Gray"
-                               Margin="10"
+                               Margin="12"
                                FontSize="11"/>
 
-                    <Button Name="BtnDashboard" Content="Dashboard" Margin="10"/>
-                    <Button Name="BtnTools" Content="Tools" Margin="10"/>
-                    <Button Name="BtnLogs" Content="Logs" Margin="10"/>
+                    <Button Name="BtnDashboard" Content="Dashboard" Margin="8"/>
+                    <Button Name="BtnTools" Content="Tools" Margin="8"/>
+                    <Button Name="BtnLogs" Content="Logs" Margin="8"/>
+                    <Button Name="BtnSettings" Content="Settings" Margin="8"/>
                 </StackPanel>
 
                 <!-- MAIN AREA -->
-                <Grid Grid.Column="1" Margin="10">
+                <Grid Grid.Column="1" Margin="12">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="120"/>
@@ -70,58 +73,68 @@ Add-Type -AssemblyName WindowsBase
                     </Grid.RowDefinitions>
 
                     <!-- STATUS CARD -->
-                    <Border Background="#1A1A1A" CornerRadius="6" Padding="10">
+                    <Border Background="#1A1A1D" CornerRadius="8" Padding="12">
                         <StackPanel>
-                            <TextBlock Name="StatusTitle"
-                                       Text="Welcome"
-                                       Foreground="White"
-                                       FontSize="18"
-                                       FontWeight="Bold"/>
+                            <TextBlock Name="TitleText"
+                                       Text="Welcome back"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"/>
 
-                            <TextBlock Name="StatusSub"
-                                       Text="Select a menu option"
+                            <TextBlock Name="SubText"
+                                       Text="Select a module from the sidebar"
                                        Foreground="Gray"/>
                         </StackPanel>
                     </Border>
 
                     <!-- CONTENT -->
-                    <Grid Grid.Row="1" Margin="0,10,0,0">
+                    <Grid Grid.Row="1" Margin="0,12,0,0">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1.2*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- LEFT PANEL -->
-                        <Border Background="#161616" CornerRadius="6" Margin="0,0,10,0">
-                            <StackPanel Margin="10">
+                        <!-- TOOLS GRID -->
+                        <Border Background="#16161A" CornerRadius="8" Margin="0,0,10,0">
+                            <StackPanel Margin="12">
 
                                 <TextBlock Text="TOOLS"
                                            Foreground="White"
-                                           FontWeight="Bold"/>
+                                           FontWeight="Bold"
+                                           Margin="0,0,0,10"/>
 
-                                <Button Content="Tool 1" Margin="5"/>
-                                <Button Content="Tool 2" Margin="5"/>
-                                <Button Content="Tool 3" Margin="5"/>
+                                <UniformGrid Columns="2">
+
+                                    <Button Content="Scan System" Margin="6"/>
+                                    <Button Content="Check Logs" Margin="6"/>
+                                    <Button Content="User Check" Margin="6"/>
+                                    <Button Content="Clean Temp" Margin="6"/>
+
+                                </UniformGrid>
+
                             </StackPanel>
                         </Border>
 
                         <!-- LOG PANEL -->
                         <Border Grid.Column="1"
-                                Background="#0D0D0D"
-                                CornerRadius="6">
+                                Background="#101012"
+                                CornerRadius="8">
 
-                            <StackPanel Margin="10">
+                            <StackPanel Margin="12">
 
-                                <TextBlock Text="LOGS"
-                                           Foreground="Gray"/>
+                                <TextBlock Text="CONSOLE"
+                                           Foreground="Gray"
+                                           Margin="0,0,0,6"/>
 
                                 <TextBox Name="LogBox"
                                          Background="Transparent"
-                                         Foreground="Lime"
                                          BorderThickness="0"
+                                         Foreground="#00FF7F"
+                                         FontFamily="Consolas"
                                          IsReadOnly="True"
-                                         TextWrapping="Wrap"/>
+                                         TextWrapping="Wrap"
+                                         VerticalScrollBarVisibility="Auto"/>
                             </StackPanel>
                         </Border>
 
@@ -134,33 +147,52 @@ Add-Type -AssemblyName WindowsBase
 </Window>
 "@
 
+# LOAD UI
 $reader = New-Object System.Xml.XmlNodeReader $xaml
 $window = [Windows.Markup.XamlReader]::Load($reader)
 
-# EVENTS
+# ELEMENTS
 $CloseBtn = $window.FindName("CloseBtn")
 $MinBtn   = $window.FindName("MinBtn")
 $LogBox   = $window.FindName("LogBox")
 
+$TitleText = $window.FindName("TitleText")
+$SubText   = $window.FindName("SubText")
+
+# LOG FUNCTION
 function Log($msg){
     $LogBox.AppendText("[$(Get-Date -f HH:mm:ss)] $msg`n")
     $LogBox.ScrollToEnd()
 }
 
+# EVENTS
 $CloseBtn.Add_Click({ $window.Close() })
 $MinBtn.Add_Click({ $window.WindowState = "Minimized" })
 
-# Sidebar buttons
 $window.FindName("BtnDashboard").Add_Click({
-    Log "Dashboard opened"
+    $TitleText.Text = "Dashboard"
+    $SubText.Text = "System overview loaded"
+    Log "Opened dashboard"
 })
 
 $window.FindName("BtnTools").Add_Click({
-    Log "Tools opened"
+    $TitleText.Text = "Tools"
+    $SubText.Text = "Tool module active"
+    Log "Opened tools"
 })
 
 $window.FindName("BtnLogs").Add_Click({
-    Log "Logs viewed"
+    $TitleText.Text = "Logs"
+    $SubText.Text = "Viewing system logs"
+    Log "Opened logs"
 })
 
+$window.FindName("BtnSettings").Add_Click({
+    $TitleText.Text = "Settings"
+    $SubText.Text = "Configuration panel"
+    Log "Opened settings"
+})
+
+# START
+Log "ICE Dashboard initialized"
 $window.ShowDialog() | Out-Null
