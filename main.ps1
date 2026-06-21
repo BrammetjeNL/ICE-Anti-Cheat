@@ -1,4 +1,4 @@
-# ICE Scanner - Improved Dashboard (Beter vormen & layout)
+# ICE Scanner - Mooie XAML Dashboard
 # Save as main.ps1
 
 Add-Type -AssemblyName PresentationFramework
@@ -6,263 +6,224 @@ Add-Type -AssemblyName PresentationCore
 Add-Type -AssemblyName WindowsBase
 Add-Type -AssemblyName System.Windows.Forms
 
-$window = New-Object System.Windows.Window
-$window.Title = "ICE Scanner"
-$window.Width = 1300
-$window.Height = 820
-$window.Background = "#0A0C12"
-$window.WindowStartupLocation = "CenterScreen"
-$window.ResizeMode = "CanResizeWithGrip"
+[xml]$xaml = @"
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ICE Scanner"
+        Width="1280" Height="820"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI">
 
-# Main Grid
-$grid = New-Object System.Windows.Controls.Grid
-$window.Content = $grid
+    <Window.Resources>
+        <SolidColorBrush x:Key="Bg" Color="#0A0C12"/>
+        <SolidColorBrush x:Key="SidebarBg" Color="#11151F"/>
+        <SolidColorBrush x:Key="CardBg" Color="#1A2337"/>
+        <SolidColorBrush x:Key="Accent" Color="#67E8F9"/>
+        <SolidColorBrush x:Key="TextMain" Color="#F1F5F9"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#94A3B8"/>
+    </Window.Resources>
 
-$col1 = New-Object System.Windows.Controls.ColumnDefinition
-$col1.Width = "280"
-$col2 = New-Object System.Windows.Controls.ColumnDefinition
-$grid.ColumnDefinitions.Add($col1)
-$grid.ColumnDefinitions.Add($col2)
+    <Border Background="{StaticResource Bg}" CornerRadius="12" BorderBrush="#1E2A44" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-# ==================== SIDEBAR ====================
-$sidebar = New-Object System.Windows.Controls.StackPanel
-$sidebar.Background = "#11151F"
-[System.Windows.Controls.Grid]::SetColumn($sidebar, 0)
-$grid.Children.Add($sidebar)
+            <!-- Title Bar -->
+            <Border Grid.Row="0" Background="#0F1625" CornerRadius="12,12,0,0">
+                <Grid>
+                    <TextBlock Text="ICE SCANNER" Foreground="{StaticResource Accent}" FontWeight="Bold" FontSize="16"
+                               VerticalAlignment="Center" Margin="20,0,0,0"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <Button x:Name="MinBtn" Content="🗕" Width="40" Height="32" Background="Transparent" Foreground="#94A3B8" FontSize="14" BorderThickness="0"/>
+                        <Button x:Name="CloseBtn" Content="✕" Width="40" Height="32" Background="Transparent" Foreground="#94A3B8" FontSize="14" BorderThickness="0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-# Logo
-$logoContainer = New-Object System.Windows.Controls.Border
-$logoContainer.Margin = "0,35,0,25"
-$logoContainer.HorizontalAlignment = "Center"
-$sidebar.Children.Add($logoContainer)
+            <!-- Main Body -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="280"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-$logoText = New-Object System.Windows.Controls.TextBlock
-$logoText.Text = "❄️"
-$logoText.FontSize = 110
-$logoText.Foreground = "#67E8F9"
-$logoText.HorizontalAlignment = "Center"
-$logoContainer.Child = $logoText
+                <!-- SIDEBAR -->
+                <Border Background="{StaticResource SidebarBg}" BorderBrush="#1E2A44" BorderThickness="0,0,1,0">
+                    <StackPanel>
+                        <!-- Logo -->
+                        <Border Margin="0,40,0,20" HorizontalAlignment="Center">
+                            <TextBlock Text="❄️" FontSize="110" Foreground="{StaticResource Accent}" HorizontalAlignment="Center"/>
+                        </Border>
 
-# Menu Items
-$menuItems = @(
-    @{Text="Dashboard"; Icon="🏠"; Active=$true},
-    @{Text="Tools"; Icon="🔧"; Active=$false},
-    @{Text="Command Logs"; Icon="💬"; Active=$false},
-    @{Text="Exit Launcher"; Icon="⏻"; Active=$false}
-)
+                        <!-- Menu -->
+                        <StackPanel Margin="16,0">
+                            <Button x:Name="BtnDashboard" Height="52" Background="#1E2937" BorderThickness="0" Margin="0,4">
+                                <StackPanel Orientation="Horizontal" Margin="20,0">
+                                    <TextBlock Text="🏠" FontSize="22" Width="32"/>
+                                    <TextBlock Text="Dashboard" Foreground="{StaticResource TextMain}" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="BtnTools" Height="52" Background="Transparent" BorderThickness="0" Margin="0,4">
+                                <StackPanel Orientation="Horizontal" Margin="20,0">
+                                    <TextBlock Text="🔧" FontSize="22" Width="32"/>
+                                    <TextBlock Text="Tools" Foreground="{StaticResource TextMain}" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="BtnLogs" Height="52" Background="Transparent" BorderThickness="0" Margin="0,4">
+                                <StackPanel Orientation="Horizontal" Margin="20,0">
+                                    <TextBlock Text="💬" FontSize="22" Width="32"/>
+                                    <TextBlock Text="Command Logs" Foreground="{StaticResource TextMain}" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="BtnExit" Height="52" Background="Transparent" BorderThickness="0" Margin="0,4">
+                                <StackPanel Orientation="Horizontal" Margin="20,0">
+                                    <TextBlock Text="⏻" FontSize="22" Width="32"/>
+                                    <TextBlock Text="Exit Launcher" Foreground="{StaticResource TextMain}" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
 
-foreach ($item in $menuItems) {
-    $btn = New-Object System.Windows.Controls.Button
-    $btn.Height = 58
-    $btn.Margin = "16,6,16,6"
-    $btn.Background = if ($item.Active) { "#1E2937" } else { "Transparent" }
-    $btn.BorderThickness = 0
-    $btn.Foreground = "#E2E8F0"
-    $btn.FontSize = 15.5
-    $btn.Style = $null  # Clean button
+                        <!-- Bottom -->
+                        <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,40">
+                            <TextBlock Text="Made by:`nBrammetje &amp; ItsDarknessz" Foreground="#64748B" FontSize="13" TextAlignment="Center" Margin="0,0,0,12"/>
+                            <TextBlock Text="ICE SCANNER`nVersion 1.0" Foreground="{StaticResource Accent}" FontSize="14" TextAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
 
-    $sp = New-Object System.Windows.Controls.StackPanel
-    $sp.Orientation = "Horizontal"
-    $sp.Margin = "24,0,0,0"
+                <!-- MAIN CONTENT -->
+                <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="30,25,30,25">
+                    <StackPanel>
+                        <TextBlock Text="DASHBOARD" FontSize="32" FontWeight="Bold" Foreground="{StaticResource TextMain}"/>
+                        <TextBlock Text="Welcome to ICE Scanner" Foreground="{StaticResource TextMuted}" FontSize="16.5" Margin="0,4,0,30"/>
 
-    $icon = New-Object System.Windows.Controls.TextBlock
-    $icon.Text = $item.Icon
-    $icon.Width = 32
-    $icon.FontSize = 21
-    $icon.VerticalAlignment = "Center"
-    $sp.Children.Add($icon)
+                        <!-- System Status -->
+                        <TextBlock Text="SYSTEM STATUS" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource TextMain}" Margin="0,0,0,12"/>
+                        <Grid Margin="0,0,0,35">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-    $txt = New-Object System.Windows.Controls.TextBlock
-    $txt.Text = $item.Text
-    $txt.VerticalAlignment = "Center"
-    $txt.Margin = "8,0,0,0"
-    $sp.Children.Add($txt)
+                            <!-- Admin Card -->
+                            <Border Background="{StaticResource CardBg}" CornerRadius="14" Padding="22" Margin="0,0,14,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="🛡️" FontSize="46" Margin="0,0,20,0" VerticalAlignment="Center"/>
+                                    <StackPanel>
+                                        <TextBlock Text="Administrator Privileges" Foreground="{StaticResource TextMain}" FontSize="15.5"/>
+                                        <TextBlock Text="You have full administrative permissions." Foreground="{StaticResource TextMuted}" FontSize="13.5"/>
+                                    </StackPanel>
+                                    <Border Background="#22C55E" CornerRadius="20" Padding="16,6" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,0,0">
+                                        <TextBlock Text="Active" Foreground="#000" FontWeight="Bold"/>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
 
-    $btn.Content = $sp
-    $sidebar.Children.Add($btn)
-}
+                            <!-- WiFi Card -->
+                            <Border Background="{StaticResource CardBg}" CornerRadius="14" Padding="22" Margin="14,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="📶" FontSize="46" Margin="0,0,20,0" VerticalAlignment="Center"/>
+                                    <StackPanel>
+                                        <TextBlock Text="WiFi Connection" Foreground="{StaticResource TextMain}" FontSize="15.5"/>
+                                        <TextBlock Text="Your internet connection is stable." Foreground="{StaticResource TextMuted}" FontSize="13.5"/>
+                                    </StackPanel>
+                                    <Border Background="#22C55E" CornerRadius="20" Padding="16,6" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,0,0">
+                                        <TextBlock Text="Active" Foreground="#000" FontWeight="Bold"/>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
 
-# Bottom
-$bottom = New-Object System.Windows.Controls.StackPanel
-$bottom.VerticalAlignment = "Bottom"
-$bottom.Margin = "0,0,0,35"
+                        <!-- Accounts -->
+                        <TextBlock Text="ACCOUNTS" FontSize="19" FontWeight="SemiBold" Foreground="{StaticResource TextMain}" Margin="0,0,0,12"/>
+                        <UniformGrid Columns="4" Margin="0,0,0,35">
+                            <Border Background="{StaticResource CardBg}" CornerRadius="12" Padding="12" Margin="6">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="🧱" FontSize="42" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="ItsDarknessz" Foreground="{StaticResource TextMain}" FontSize="14" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                                    <TextBlock Text="Premium" Foreground="{StaticResource Accent}" FontSize="12" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="{StaticResource CardBg}" CornerRadius="12" Padding="12" Margin="6">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="🧱" FontSize="42" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="DarknessDev" Foreground="{StaticResource TextMain}" FontSize="14" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                                    <TextBlock Text="Premium" Foreground="{StaticResource Accent}" FontSize="12" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="{StaticResource CardBg}" CornerRadius="12" Padding="12" Margin="6">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="👩" FontSize="42" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="ItsDarknessz" Foreground="{StaticResource TextMain}" FontSize="14" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                                    <TextBlock Text="123456789012345678" Foreground="{StaticResource Accent}" FontSize="12" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="{StaticResource CardBg}" CornerRadius="12" Padding="12" Margin="6">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="👩" FontSize="42" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="ItsDarknessz ALT" Foreground="{StaticResource TextMain}" FontSize="14" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                                    <TextBlock Text="987654321098765432" Foreground="{StaticResource Accent}" FontSize="12" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
 
-$madeBy = New-Object System.Windows.Controls.TextBlock
-$madeBy.Text = "Made by:`nBrammetje & ItsDarknessz"
-$madeBy.Foreground = "#64748B"
-$madeBy.FontSize = 12.5
-$madeBy.HorizontalAlignment = "Center"
-$madeBy.Margin = "0,0,0,12"
-$bottom.Children.Add($madeBy)
+                        <!-- Statistics -->
+                        <TextBlock Text="STATISTICS" FontSize="19" FontWeight="SemiBold" Foreground="{StaticResource TextMain}" Margin="0,0,0,12"/>
+                        <UniformGrid Columns="4" Margin="0,0,0,35">
+                            <Border Background="{StaticResource CardBg}" CornerRadius="12" Padding="16" Margin="6">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource Accent}"/>
+                                    <TextBlock Text="Scans Run" Foreground="{StaticResource TextMuted}" FontSize="13"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="{StaticResource CardBg}" CornerRadius="12" Padding="16" Margin="6">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource Accent}"/>
+                                    <TextBlock Text="Threats Found" Foreground="{StaticResource TextMuted}" FontSize="13"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="{StaticResource CardBg}" CornerRadius="12" Padding="16" Margin="6">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="---" FontSize="32" FontWeight="Bold" Foreground="{StaticResource Accent}"/>
+                                    <TextBlock Text="Last Scan" Foreground="{StaticResource TextMuted}" FontSize="13"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Background="{StaticResource CardBg}" CornerRadius="12" Padding="16" Margin="6">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="0" FontSize="32" FontWeight="Bold" Foreground="{StaticResource Accent}"/>
+                                    <TextBlock Text="Files Scanned" Foreground="{StaticResource TextMuted}" FontSize="13"/>
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
 
-$version = New-Object System.Windows.Controls.TextBlock
-$version.Text = "ICE SCANNER`nVersion 1.0"
-$version.Foreground = "#67E8F9"
-$version.FontSize = 13.5
-$version.HorizontalAlignment = "Center"
-$bottom.Children.Add($version)
+                        <!-- Live Log -->
+                        <TextBlock Text="LIVE LOG CONSOLE" FontSize="19" FontWeight="SemiBold" Foreground="{StaticResource TextMain}" Margin="0,0,0,10"/>
+                        <Border Background="#0F1625" CornerRadius="14" BorderBrush="#1E2A44" BorderThickness="1" Padding="18">
+                            <TextBox x:Name="LogBox" Background="Transparent" BorderThickness="0" Foreground="#CBD5E1" FontFamily="Consolas" FontSize="13.5" IsReadOnly="True" Height="240" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                     Text="[12:45:01] [INFO] ICE Initializing...&#x0a;[12:45:01] [INFO] Administrator privileges detected.&#x0a;[12:45:01] [INFO] Internet connection stable.&#x0a;[12:45:02] [INFO] Discord detected.&#x0a;[12:45:02] [INFO] Minecraft installation found.&#x0a;[12:45:02] [READY] ICE Ready."/>
+                        </Border>
 
-$sidebar.Children.Add($bottom)
-
-# ==================== MAIN CONTENT ====================
-$scroll = New-Object System.Windows.Controls.ScrollViewer
-$scroll.VerticalScrollBarVisibility = "Auto"
-[System.Windows.Controls.Grid]::SetColumn($scroll, 1)
-$grid.Children.Add($scroll)
-
-$main = New-Object System.Windows.Controls.StackPanel
-$main.Margin = "40,35,40,40"
-$scroll.Content = $main
-
-# Header
-$header = New-Object System.Windows.Controls.TextBlock
-$header.Text = "DASHBOARD"
-$header.FontSize = 34
-$header.FontWeight = "Bold"
-$header.Foreground = "#F8FAFC"
-$main.Children.Add($header)
-
-$welcome = New-Object System.Windows.Controls.TextBlock
-$welcome.Text = "Welcome to ICE Scanner"
-$welcome.Foreground = "#94A3B8"
-$welcome.FontSize = 16.5
-$welcome.Margin = "0,6,0,35"
-$main.Children.Add($welcome)
-
-# Status Cards - 2 kolommen
-$statusGrid = New-Object System.Windows.Controls.Grid
-$statusGrid.Margin = "0,0,0,35"
-$statusGrid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition))
-$statusGrid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition))
-
-# Admin Card
-$adminCard = New-Object System.Windows.Controls.Border
-$adminCard.Background = "#1A2337"
-$adminCard.CornerRadius = 16
-$adminCard.Padding = "24"
-$adminCard.Margin = "0,0,16,0"
-[System.Windows.Controls.Grid]::SetColumn($adminCard, 0)
-
-$adminStack = New-Object System.Windows.Controls.StackPanel
-$adminStack.Orientation = "Horizontal"
-
-$shield = New-Object System.Windows.Controls.TextBlock
-$shield.Text = "🛡️"
-$shield.FontSize = 48
-$shield.Margin = "0,0,22,0"
-$shield.VerticalAlignment = "Center"
-$adminStack.Children.Add($shield)
-
-$adminInfo = New-Object System.Windows.Controls.StackPanel
-$adminTitle = New-Object System.Windows.Controls.TextBlock
-$adminTitle.Text = "Administrator Privileges"
-$adminTitle.Foreground = "#F1F5F9"
-$adminTitle.FontSize = 15.5
-$adminInfo.Children.Add($adminTitle)
-
-$adminDesc = New-Object System.Windows.Controls.TextBlock
-$adminDesc.Text = "You have full administrative permissions."
-$adminDesc.Foreground = "#94A3B8"
-$adminDesc.FontSize = 13.5
-$adminInfo.Children.Add($adminDesc)
-
-$adminStack.Children.Add($adminInfo)
-$adminCard.Child = $adminStack
-
-$active = New-Object System.Windows.Controls.Border
-$active.Background = "#22C55E"
-$active.CornerRadius = 20
-$active.Width = 72
-$active.Height = 28
-$active.HorizontalAlignment = "Right"
-$active.VerticalAlignment = "Top"
-$activeTxt = New-Object System.Windows.Controls.TextBlock
-$activeTxt.Text = "Active"
-$activeTxt.Foreground = "#000"
-$activeTxt.FontWeight = "Bold"
-$activeTxt.HorizontalAlignment = "Center"
-$activeTxt.VerticalAlignment = "Center"
-$active.Child = $activeTxt
-$adminCard.Child = $adminStack  # temporary, we'll layer it better later if needed
-
-$statusGrid.Children.Add($adminCard)
-
-# WiFi Card (zelfde stijl)
-$wifiCard = New-Object System.Windows.Controls.Border
-$wifiCard.Background = "#1A2337"
-$wifiCard.CornerRadius = 16
-$wifiCard.Padding = "24"
-$wifiCard.Margin = "16,0,0,0"
-[System.Windows.Controls.Grid]::SetColumn($wifiCard, 1)
-
-$wifiStack = New-Object System.Windows.Controls.StackPanel
-$wifiStack.Orientation = "Horizontal"
-
-$wifiIcon = New-Object System.Windows.Controls.TextBlock
-$wifiIcon.Text = "📶"
-$wifiIcon.FontSize = 46
-$wifiIcon.Margin = "0,0,22,0"
-$wifiIcon.VerticalAlignment = "Center"
-$wifiStack.Children.Add($wifiIcon)
-
-$wifiInfo = New-Object System.Windows.Controls.StackPanel
-$wifiTitle = New-Object System.Windows.Controls.TextBlock
-$wifiTitle.Text = "WiFi Connection"
-$wifiTitle.Foreground = "#F1F5F9"
-$wifiTitle.FontSize = 15.5
-$wifiInfo.Children.Add($wifiTitle)
-
-$wifiDesc = New-Object System.Windows.Controls.TextBlock
-$wifiDesc.Text = "Your internet connection is stable."
-$wifiDesc.Foreground = "#94A3B8"
-$wifiDesc.FontSize = 13.5
-$wifiInfo.Children.Add($wifiDesc)
-
-$wifiStack.Children.Add($wifiInfo)
-$wifiCard.Child = $wifiStack
-
-$statusGrid.Children.Add($wifiCard)
-$main.Children.Add($statusGrid)
-
-# Live Log Console
-$logTitle = New-Object System.Windows.Controls.TextBlock
-$logTitle.Text = "LIVE LOG CONSOLE"
-$logTitle.FontSize = 19
-$logTitle.FontWeight = "SemiBold"
-$logTitle.Foreground = "#F1F5F9"
-$logTitle.Margin = "0,10,0,12"
-$main.Children.Add($logTitle)
-
-$logBorder = New-Object System.Windows.Controls.Border
-$logBorder.Background = "#0F1625"
-$logBorder.BorderBrush = "#1E2A44"
-$logBorder.BorderThickness = 1
-$logBorder.CornerRadius = 16
-$logBorder.Padding = 18
-
-$log = New-Object System.Windows.Controls.TextBox
-$log.IsReadOnly = $true
-$log.Background = "Transparent"
-$log.Foreground = "#CBD5E1"
-$log.FontFamily = "Consolas"
-$log.FontSize = 13.8
-$log.Text = @"
-[12:45:01] [INFO] ICE Initializing...
-[12:45:01] [INFO] Administrator privileges detected.
-[12:45:01] [INFO] Internet connection stable.
-[12:45:02] [INFO] Discord detected.
-[12:45:02] [INFO] Minecraft installation found.
-[12:45:02] [READY] ICE Ready.
+                        <TextBlock Text="ICE SCANNER • BUILT FOR SECURITY" Foreground="#475569" HorizontalAlignment="Center" Margin="0,30,0,0" FontSize="12"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
 "@
-$logBorder.Child = $log
-$main.Children.Add($logBorder)
 
-# Footer
-$footer = New-Object System.Windows.Controls.TextBlock
-$footer.Text = "ICE SCANNER • BUILT FOR SECURITY"
-$footer.Foreground = "#475569"
-$footer.HorizontalAlignment = "Center"
-$footer.Margin = "0,45,0,0"
-$main.Children.Add($footer)
+$reader = New-Object System.Xml.XmlNodeReader $xaml
+$window = [Windows.Markup.XamlReader]::Load($reader)
+
+# Window Controls
+$window.Add_MouseLeftButtonDown({ $window.DragMove() })
+$window.FindName("CloseBtn").Add_Click({ $window.Close() })
+$window.FindName("MinBtn").Add_Click({ $window.WindowState = "Minimized" })
 
 $window.ShowDialog() | Out-Null
