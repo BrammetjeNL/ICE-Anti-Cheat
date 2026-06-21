@@ -389,7 +389,7 @@ function Get-DiscordAccounts {
           <StackPanel Grid.Row="0" Margin="20,24,20,20" HorizontalAlignment="Center">
             <TextBlock Text="❄" FontSize="40" HorizontalAlignment="Center"
                        Foreground="#4FC3F7" Margin="0,0,0,6"/>
-            <TextBlock Text="ICE SCANNER" FontSize="13" FontWeight="Bold" LetterSpacing="3"
+            <TextBlock Text="ICE SCANNER" FontSize="13" FontWeight="Bold"
                        HorizontalAlignment="Center" Foreground="#E3F2FD"/>
             <TextBlock Text="Version 1.0" FontSize="10" HorizontalAlignment="Center"
                        Foreground="#37474F" Margin="0,2,0,0"/>
@@ -431,7 +431,7 @@ function Get-DiscordAccounts {
           <Grid Margin="20,0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
               <TextBlock x:Name="PageTitle" Text="DASHBOARD" FontSize="16" FontWeight="Bold"
-                         Foreground="#E3F2FD" LetterSpacing="2"/>
+                         Foreground="#E3F2FD"/>
               <TextBlock x:Name="PageSub" Text=" • Welcome to ICE Scanner" FontSize="12"
                          Foreground="#37474F" VerticalAlignment="Bottom" Margin="0,0,0,1"/>
             </StackPanel>
@@ -481,7 +481,7 @@ function Get-DiscordAccounts {
                 <!-- System Status -->
                 <Border Grid.Column="0" Style="{StaticResource Card}">
                   <StackPanel>
-                    <TextBlock Text="SYSTEM STATUS" FontSize="10" FontWeight="Bold" LetterSpacing="2"
+                    <TextBlock Text="SYSTEM STATUS" FontSize="10" FontWeight="Bold"
                                Foreground="#37474F" Margin="0,0,0,14"/>
                     <!-- Admin row -->
                     <Border Background="#0A1520" BorderBrush="#1A2535" BorderThickness="1"
@@ -530,7 +530,7 @@ function Get-DiscordAccounts {
                     <Grid Margin="0,0,0,14">
                       <StackPanel Orientation="Horizontal">
                         <TextBlock Text="⛏" FontSize="12" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                        <TextBlock Text="MINECRAFT ACCOUNTS" FontSize="10" FontWeight="Bold" LetterSpacing="2"
+                        <TextBlock Text="MINECRAFT ACCOUNTS" FontSize="10" FontWeight="Bold"
                                    Foreground="#37474F" VerticalAlignment="Center"/>
                       </StackPanel>
                     </Grid>
@@ -565,7 +565,7 @@ function Get-DiscordAccounts {
                     <Grid Margin="0,0,0,14">
                       <StackPanel Orientation="Horizontal">
                         <TextBlock Text="💬" FontSize="12" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                        <TextBlock Text="DISCORD ACCOUNTS" FontSize="10" FontWeight="Bold" LetterSpacing="2"
+                        <TextBlock Text="DISCORD ACCOUNTS" FontSize="10" FontWeight="Bold"
                                    Foreground="#37474F" VerticalAlignment="Center"/>
                       </StackPanel>
                     </Grid>
@@ -632,7 +632,7 @@ function Get-DiscordAccounts {
                 <StackPanel>
                   <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
                     <TextBlock Text="●" FontSize="8" Foreground="#66BB6A" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                    <TextBlock Text="LIVE LOG CONSOLE" FontSize="10" FontWeight="Bold" LetterSpacing="2"
+                    <TextBlock Text="LIVE LOG CONSOLE" FontSize="10" FontWeight="Bold"
                                Foreground="#37474F"/>
                   </StackPanel>
                   <Border Background="#060C14" BorderBrush="#111D2C" BorderThickness="1"
@@ -667,7 +667,7 @@ function Get-DiscordAccounts {
             <Grid x:Name="PageLogs" Margin="20,16,20,20" Visibility="Collapsed">
               <Border Style="{StaticResource Card}">
                 <StackPanel>
-                  <TextBlock Text="COMMAND LOG HISTORY" FontSize="10" FontWeight="Bold" LetterSpacing="2"
+                  <TextBlock Text="COMMAND LOG HISTORY" FontSize="10" FontWeight="Bold"
                              Foreground="#37474F" Margin="0,0,0,14"/>
                   <Border Background="#060C14" BorderBrush="#111D2C" BorderThickness="1"
                           CornerRadius="6" Height="440">
@@ -686,7 +686,7 @@ function Get-DiscordAccounts {
               <Border Style="{StaticResource Card}">
                 <StackPanel HorizontalAlignment="Center" Margin="0,30,0,0">
                   <TextBlock Text="❄" FontSize="60" HorizontalAlignment="Center" Foreground="#4FC3F7"/>
-                  <TextBlock Text="ICE SCANNER" FontSize="24" FontWeight="Bold" LetterSpacing="4"
+                  <TextBlock Text="ICE SCANNER" FontSize="24" FontWeight="Bold"
                              Foreground="#E3F2FD" HorizontalAlignment="Center" Margin="0,12,0,4"/>
                   <TextBlock Text="Version 1.0  •  Built for Security" FontSize="12"
                              Foreground="#37474F" HorizontalAlignment="Center"/>
@@ -704,7 +704,7 @@ function Get-DiscordAccounts {
             <Grid x:Name="PageSettings" Margin="20,16,20,20" Visibility="Collapsed">
               <Border Style="{StaticResource Card}">
                 <StackPanel>
-                  <TextBlock Text="SETTINGS" FontSize="10" FontWeight="Bold" LetterSpacing="2"
+                  <TextBlock Text="SETTINGS" FontSize="10" FontWeight="Bold"
                              Foreground="#37474F" Margin="0,0,0,20"/>
                   <TextBlock Text="Firebase Database" FontSize="13" Foreground="#CFD8DC" Margin="0,0,0,6"/>
                   <TextBlock Text="ice-anticheat-default-rtdb.europe-west1.firebasedatabase.app"
